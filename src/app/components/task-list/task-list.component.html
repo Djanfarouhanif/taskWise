@@ -1,0 +1,13 @@
+    <div class="space-y-4">
+      <div *ngIf="taskService.filteredTasks().length === 0" class="text-center py-10 opacity-50">
+        <p class="text-xl">No tasks found matching your filters.</p>
+      </div>
+
+      <app-task-item
+        *ngFor="let task of taskService.filteredTasks()"
+        [task]="task"
+        (onStatusChange)="taskService.updateTask($event)"
+        (onDelete)="taskService.deleteTask($event)"
+        (onEdit)="onEdit(task)">
+      </app-task-item>
+    </div>

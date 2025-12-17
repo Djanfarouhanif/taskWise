@@ -1,0 +1,76 @@
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-700">
+      <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+        {{ isEditMode ? 'Edit Task' : 'New Task' }}
+      </h2>
+
+      <!-- Title -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+        <input
+          formControlName="title"
+          type="text"
+          placeholder="What needs to be done?"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-900 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
+        />
+        <p *ngIf="taskForm.get('title')?.touched && taskForm.get('title')?.invalid" class="text-red-500 text-xs mt-1">
+          Title is required.
+        </p>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+        <textarea
+          formControlName="description"
+          rows="3"
+          placeholder="Add details..."
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-900 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <!-- Category -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
+          <select
+            formControlName="category"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-900 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white">
+            <option value="Personal">Personal</option>
+            <option value="Work">Work</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Health">Health</option>
+            <option value="Finance">Finance</option>
+          </select>
+        </div>
+
+        <!-- Priority -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Priority</label>
+          <div class="flex gap-2">
+            <label *ngFor="let p of priorities" class="cursor-pointer relative">
+               <input type="radio" formControlName="priority" [value]="p" class="peer sr-only">
+               <span class="block px-3 py-2 rounded-lg border text-sm capitalize transition-all select-none
+                  peer-checked:font-bold
+                  peer-checked:ring-2 peer-checked:ring-offset-1
+                  "
+                  [ngClass]="{
+                    'border-green-200 text-green-700 bg-green-50 peer-checked:bg-green-100 peer-checked:ring-green-400': p === 'low',
+                    'border-orange-200 text-orange-700 bg-orange-50 peer-checked:bg-orange-100 peer-checked:ring-orange-400': p === 'medium',
+                    'border-red-200 text-red-700 bg-red-50 peer-checked:bg-red-100 peer-checked:ring-red-400': p === 'high'
+                  }">
+                  {{ p }}
+               </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3">
+        <button type="button" (click)="onCancel.emit()" class="px-5 py-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-zinc-700 transition-colors">
+          Cancel
+        </button>
+        <button type="submit" [disabled]="taskForm.invalid" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-shadow shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ isEditMode ? 'Update Task' : 'Create Task' }}
+        </button>
+      </div>
+    </form>
