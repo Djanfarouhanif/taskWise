@@ -14,6 +14,11 @@ export class TaskItemComponent {
   @Output() onEdit = new EventEmitter<Task>();
   @Output() onStatusChange = new EventEmitter<Task>();
 
+  setStatus(status: 'todo' | 'in-progress' | 'done') {
+    const updatedTask = { ...this.task, status };
+    this.onStatusChange.emit(updatedTask);
+  }
+
   toggleStatus() {
     const nextStatus = {
       'todo': 'in-progress',

@@ -1,16 +1,43 @@
 <div class="group relative p-6 mb-4 bg-[#E0E5EC] rounded-[20px] shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)] transition-all duration-300 hover:scale-[1.01]">
       <div class="flex items-start justify-between">
         <div class="flex items-start gap-4 w-full">
-          <!-- Status Checkbox (Neumorphic Button) -->
-          <button (click)="toggleStatus()"
-            class="mt-1 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
-            [ngClass]="{
-              'bg-[#E0E5EC] shadow-[inset_3px_3px_6px_#b8b9be,inset_-3px_-3px_6px_#ffffff] text-green-500': task.status === 'done',
-              'bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff]': task.status !== 'done'
-            }">
-            <span *ngIf="task.status === 'done'" class="text-xs font-bold">✓</span>
-            <span *ngIf="task.status === 'in-progress'" class="text-blue-500 text-xs font-bold">→</span>
-          </button>
+          <!-- Status Controls (Neumorphic) -->
+          <div class="flex items-center gap-2 mt-1">
+             <!-- Start Button (Visible if Todo or Done) -->
+             <button *ngIf="task.status === 'todo'"
+                (click)="setStatus('in-progress')"
+                title="Start Task"
+                class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-green-500 hover:text-green-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+                <svg class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+             </button>
+
+             <!-- Resume Button (Visible if Done - to restart) -->
+             <button *ngIf="task.status === 'done'"
+                (click)="setStatus('in-progress')"
+                title="Restart Task"
+                class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-blue-500 hover:text-blue-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+             </button>
+
+             <!-- In Progress Controls -->
+             <ng-container *ngIf="task.status === 'in-progress'">
+               <!-- Pause (Back to Todo) -->
+               <button
+                  (click)="setStatus('todo')"
+                  title="Pause Task"
+                  class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-orange-500 hover:text-orange-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+               </button>
+
+               <!-- Complete -->
+               <button
+                  (click)="setStatus('done')"
+                  title="Complete Task"
+                  class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-green-500 hover:text-green-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+               </button>
+             </ng-container>
+          </div>
 
           <!-- Content -->
           <div class="flex-1">
