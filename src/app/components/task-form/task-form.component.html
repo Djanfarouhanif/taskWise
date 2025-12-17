@@ -1,62 +1,68 @@
-    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-700">
-      <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="bg-[#E0E5EC] p-8 rounded-[30px] ">
+      <h2 class="text-2xl font-bold mb-6 text-[#4D4D4D]">
         {{ isEditMode ? 'Edit Task' : 'New Task' }}
       </h2>
 
       <!-- Title -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+      <div class="mb-5">
+        <label class="block text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Title</label>
         <input
           formControlName="title"
           type="text"
           placeholder="What needs to be done?"
-          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-900 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
+          class="w-full px-6 py-3 rounded-xl bg-[#E0E5EC] shadow-[inset_5px_5px_10px_#bebebe,inset_-5px_-5px_10px_#ffffff] border-none focus:outline-none focus:shadow-[inset_2px_2px_5px_#bebebe,inset_-2px_-2px_5px_#ffffff] transition-all text-gray-700 placeholder-gray-400"
         />
-        <p *ngIf="taskForm.get('title')?.touched && taskForm.get('title')?.invalid" class="text-red-500 text-xs mt-1">
+        <p *ngIf="taskForm.get('title')?.touched && taskForm.get('title')?.invalid" class="text-red-400 text-xs mt-2 ml-2">
           Title is required.
         </p>
       </div>
 
       <!-- Description -->
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+      <div class="mb-5">
+        <label class="block text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Description</label>
         <textarea
           formControlName="description"
           rows="3"
           placeholder="Add details..."
-          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-900 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
+          class="w-full px-6 py-3 rounded-xl bg-[#E0E5EC] shadow-[inset_5px_5px_10px_#bebebe,inset_-5px_-5px_10px_#ffffff] border-none focus:outline-none focus:shadow-[inset_2px_2px_5px_#bebebe,inset_-2px_-2px_5px_#ffffff] transition-all text-gray-700 placeholder-gray-400"
         ></textarea>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <!-- Category -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
-          <select
-            formControlName="category"
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-900 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white">
-            <option value="Personal">Personal</option>
-            <option value="Work">Work</option>
-            <option value="Shopping">Shopping</option>
-            <option value="Health">Health</option>
-            <option value="Finance">Finance</option>
-          </select>
+          <label class="block text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Category</label>
+          <div class="relative">
+             <select
+               formControlName="category"
+               class="w-full px-6 py-3 rounded-xl bg-[#E0E5EC] shadow-[inset_5px_5px_10px_#bebebe,inset_-5px_-5px_10px_#ffffff] border-none focus:outline-none text-gray-700 appearance-none cursor-pointer">
+               <option value="Personal">Personal</option>
+               <option value="Work">Work</option>
+               <option value="Shopping">Shopping</option>
+               <option value="Health">Health</option>
+               <option value="Finance">Finance</option>
+             </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+          </div>
         </div>
 
         <!-- Priority -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Priority</label>
-          <div class="flex gap-2">
-            <label *ngFor="let p of priorities" class="cursor-pointer relative">
+          <label class="block text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Priority</label>
+          <div class="flex gap-3">
+            <label *ngFor="let p of priorities" class="cursor-pointer relative flex-1">
                <input type="radio" formControlName="priority" [value]="p" class="peer sr-only">
-               <span class="block px-3 py-2 rounded-lg border text-sm capitalize transition-all select-none
-                  peer-checked:font-bold
-                  peer-checked:ring-2 peer-checked:ring-offset-1
-                  "
+               <span class="block px-2 py-3 rounded-xl text-center text-xs font-bold capitalize transition-all select-none
+                  text-gray-500 bg-[#E0E5EC]
+                  shadow-[5px_5px_10px_#bebebe,-5px_-5px_10px_#ffffff]
+                  peer-checked:shadow-[inset_5px_5px_10px_#bebebe,inset_-5px_-5px_10px_#ffffff]
+                  peer-checked:text-blue-500"
                   [ngClass]="{
-                    'border-green-200 text-green-700 bg-green-50 peer-checked:bg-green-100 peer-checked:ring-green-400': p === 'low',
-                    'border-orange-200 text-orange-700 bg-orange-50 peer-checked:bg-orange-100 peer-checked:ring-orange-400': p === 'medium',
-                    'border-red-200 text-red-700 bg-red-50 peer-checked:bg-red-100 peer-checked:ring-red-400': p === 'high'
+                     'peer-checked:text-red-500': p === 'high',
+                     'peer-checked:text-orange-500': p === 'medium',
+                     'peer-checked:text-green-500': p === 'low'
                   }">
                   {{ p }}
                </span>
@@ -65,12 +71,12 @@
         </div>
       </div>
 
-      <div class="flex justify-end gap-3">
-        <button type="button" (click)="onCancel.emit()" class="px-5 py-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-zinc-700 transition-colors">
+      <div class="flex justify-end gap-4">
+        <button type="button" (click)="onCancel.emit()" class="px-6 py-3 rounded-xl text-gray-500 font-bold hover:text-gray-700 bg-[#E0E5EC] shadow-[5px_5px_10px_#bebebe,-5px_-5px_10px_#ffffff] active:shadow-[inset_2px_2px_5px_#bebebe,inset_-2px_-2px_5px_#ffffff] transition-all">
           Cancel
         </button>
-        <button type="submit" [disabled]="taskForm.invalid" class="px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-shadow shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-          {{ isEditMode ? 'Update Task' : 'Create Task' }}
+        <button type="submit" [disabled]="taskForm.invalid" class="px-8 py-3 rounded-xl bg-[#E0E5EC] text-blue-500 font-bold shadow-[5px_5px_10px_#bebebe,-5px_-5px_10px_#ffffff] active:shadow-[inset_2px_2px_5px_#bebebe,inset_-2px_-2px_5px_#ffffff] hover:text-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ isEditMode ? 'Update' : 'Create' }}
         </button>
       </div>
     </form>

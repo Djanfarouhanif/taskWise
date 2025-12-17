@@ -1,53 +1,61 @@
-    <div class="group relative p-4 mb-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-white/20">
+<div class="group relative p-6 mb-4 bg-[#E0E5EC] rounded-[20px] shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)] transition-all duration-300 hover:scale-[1.01]">
       <div class="flex items-start justify-between">
-        <div class="flex items-start gap-3">
-          <!-- Status Checkbox -->
+        <div class="flex items-start gap-4 w-full">
+          <!-- Status Checkbox (Neumorphic Button) -->
           <button (click)="toggleStatus()"
-            class="mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-300"
+            class="mt-1 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
             [ngClass]="{
-              'border-green-400 bg-green-400': task.status === 'done',
-              'border-yellow-400 bg-yellow-400': task.status === 'in-progress',
-              'border-gray-400 hover:border-blue-400': task.status === 'todo'
+              'bg-[#E0E5EC] shadow-[inset_3px_3px_6px_#b8b9be,inset_-3px_-3px_6px_#ffffff] text-green-500': task.status === 'done',
+              'bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff]': task.status !== 'done'
             }">
-            <span *ngIf="task.status === 'done'" class="text-white text-xs">✓</span>
-            <span *ngIf="task.status === 'in-progress'" class="text-white text-xs">→</span>
+            <span *ngIf="task.status === 'done'" class="text-xs font-bold">✓</span>
+            <span *ngIf="task.status === 'in-progress'" class="text-blue-500 text-xs font-bold">→</span>
           </button>
 
           <!-- Content -->
-          <div>
-            <h3 class="font-semibold text-gray-800 dark:text-white group-hover:text-blue-600 transition-colors"
+          <div class="flex-1">
+            <h3 class="text-xl font-bold text-[#4D4D4D] group-hover:text-blue-600 transition-colors tracking-wide"
                [class.line-through]="task.status === 'done'"
-               [class.opacity-60]="task.status === 'done'">
+               [class.opacity-50]="task.status === 'done'">
               {{ task.title }}
             </h3>
-            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1"
-               [class.opacity-60]="task.status === 'done'">
+
+            <p class="text-sm text-gray-500 font-medium mt-1 tracking-wide"
+               [class.opacity-50]="task.status === 'done'">
               {{ task.description }}
             </p>
 
-            <div class="flex gap-2 mt-3 text-xs">
-              <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+            <div class="flex items-center gap-3 mt-4">
+              <!-- Category Chip (Recessed/Inset) -->
+              <span class="px-3 py-1 text-xs font-bold text-gray-500 rounded-full bg-[#E0E5EC] shadow-[inset_3px_3px_6px_#b8b9be,inset_-3px_-3px_6px_#ffffff]">
                 {{ task.category }}
               </span>
-              <span class="px-2 py-1 rounded-full uppercase font-bold tracking-wider text-[10px]"
+
+              <!-- Priority -->
+              <span class="text-[10px] uppercase font-bold tracking-widest"
                 [ngClass]="{
-                  'bg-red-100 text-red-600': task.priority === 'high',
-                  'bg-orange-100 text-orange-600': task.priority === 'medium',
-                  'bg-green-100 text-green-600': task.priority === 'low'
+                  'text-red-500': task.priority === 'high',
+                  'text-orange-500': task.priority === 'medium',
+                  'text-green-500': task.priority === 'low'
                 }">
                 {{ task.priority }}
               </span>
             </div>
+
+            <!-- Date (if available, mostly just mockup) -->
+             <div class="mt-2 text-right text-xs text-gray-400 font-bold tracking-wider opacity-60">
+                 {{ task.createdAt | date:'yyyy/MM/dd' }}
+             </div>
           </div>
         </div>
 
-        <!-- Actions -->
-        <div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
-            <button (click)="onEdit.emit(task)" class="p-2 text-gray-400 hover:text-blue-500 transition-colors">
-                Edit
+        <!-- Actions (Neumorphic Buttons) -->
+        <div class="flex flex-col gap-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button (click)="onEdit.emit(task)" class="w-8 h-8 rounded-full bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] flex items-center justify-center text-gray-500 hover:text-blue-500 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+                ✎
             </button>
-            <button (click)="onDelete.emit(task.id!)" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                Delete
+            <button (click)="onDelete.emit(task.id!)" class="w-8 h-8 rounded-full bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] flex items-center justify-center text-gray-500 hover:text-red-500 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+                ✕
             </button>
         </div>
       </div>
