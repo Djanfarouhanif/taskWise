@@ -1,5 +1,12 @@
 <div class="h-screen overflow-y-auto sm:overflow-hidden bg-[#E0E5EC] text-gray-700 transition-colors duration-500 font-sans p-4 md:p-8">
-      <div class="max-w-5xl mx-auto">
+      <!-- Absolute Language Toggle -->
+      <button
+        (click)="languageService.toggleLanguage()"
+        class="absolute top-4 right-4 md:top-8 md:right-8 z-50 w-12 h-12 rounded-full bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] flex items-center justify-center text-gray-600 font-bold text-sm uppercase hover:text-blue-500 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
+        {{ languageService.currentLang() }}
+      </button>
+
+      <div class="max-w-5xl mx-auto pt-16 md:pt-0">
         <!-- Header -->
         <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -9,14 +16,7 @@
             <p class="text-gray-500 font-medium tracking-wide">{{ languageService.t.appSubtitle }}</p>
           </div>
 
-          <div class="flex items-center gap-4">
-            <!-- Language Toggle -->
-            <button
-              (click)="languageService.toggleLanguage()"
-              class="w-10 h-10 rounded-full bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] flex items-center justify-center text-gray-600 font-bold text-xs uppercase hover:text-blue-500 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
-              {{ languageService.currentLang() }}
-            </button>
-
+          <div>
             <button
               (click)="showCreateForm()"
               class="group flex items-center gap-2 bg-[#E0E5EC] text-gray-700 px-6 py-3 rounded-full font-bold shadow-[6px_6px_12px_#b8b9be,-6px_-6px_12px_#ffffff] hover:shadow-[inset_3px_3px_6px_#b8b9be,inset_-3px_-3px_6px_#ffffff] hover:scale-[0.98] transition-all duration-300 active:text-blue-500">
@@ -102,7 +102,7 @@
            </aside>
 
            <!-- Main Content -->
-           <main class="lg:col-span-3 sm:h-[60vh] sm:overflow-y-auto p-2">
+           <main class="lg:col-span-3 sm:max-h-[55vh] sm:overflow-y-auto p-2 pb-10">
              <!-- Task Form Overlay/Modal -->
              <div *ngIf="showForm" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
                 <div class="w-full max-w-lg bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl relative animate-in zoom-in-95 duration-200">
