@@ -1,14 +1,14 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <!-- Total Tasks -->
       <div class="bg-[#E0E5EC] rounded-[20px] p-6 text-gray-700 shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)]">
-        <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider">Total Tasks</h3>
+        <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider">{{ languageService.t.totalTasks }}</h3>
         <p class="text-4xl font-bold mt-2 text-[#4D4D4D]">{{ stats().total }}</p>
-        <p class="text-sm text-gray-400 mt-1 font-medium">{{ stats().completed }} completed</p>
+        <p class="text-sm text-gray-400 mt-1 font-medium">{{ stats().completed }} {{ languageService.t.completed }}</p>
       </div>
 
       <!-- Completion Rate -->
       <div class="bg-[#E0E5EC] rounded-[20px] p-6 text-gray-700 shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)]">
-        <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider">Completion Rate</h3>
+        <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider">{{ languageService.t.completionRate }}</h3>
         <div class="flex items-center gap-4 mt-2">
             <p class="text-4xl font-bold text-[#4D4D4D]">{{ stats().completionRate }}%</p>
             <div class="h-12 w-12 rounded-full shadow-[inset_3px_3px_6px_#b8b9be,inset_-3px_-3px_6px_#ffffff] p-1 flex items-center justify-center relative">
@@ -20,20 +20,20 @@
                 <div class="absolute inset-2 bg-[#E0E5EC] rounded-full shadow-[3px_3px_6px_#b8b9be,-3px_-3px_6px_#ffffff]"></div>
             </div>
         </div>
-        <p class="text-sm text-gray-400 mt-1 font-medium">Keep it up!</p>
+        <p class="text-sm text-gray-400 mt-1 font-medium">{{ languageService.t.keepItUp }}</p>
       </div>
 
       <!-- Category Breakdown -->
       <div class="bg-[#E0E5EC] rounded-[20px] py-6 text-gray-700 shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)]">
-        <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-4 px-6">Categories</h3>
+        <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-4 px-6">{{ languageService.t.categories }}</h3>
         <div class="space-y-3 h-[100px] overflow-y-auto px-6 custom-scrollbar">
           <div *ngFor="let cat of objectKeys(stats().byCategory)" class="flex items-center justify-between text-sm group">
-             <span class="text-[#4D4D4D] font-bold">{{ cat }}</span>
+             <span class="text-[#4D4D4D] font-bold">{{ getCategoryTranslation(cat) }}</span>
              <span class="bg-[#E0E5EC] text-gray-500 px-3 py-1 rounded-full text-xs font-bold shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff]">
                {{ stats().byCategory[cat] }}
              </span>
           </div>
-          <div *ngIf="stats().total === 0" class="text-gray-400 italic text-xs text-center mt-4">No data yet</div>
+          <div *ngIf="stats().total === 0" class="text-gray-400 italic text-xs text-center mt-4">{{ languageService.t.noData }}</div>
         </div>
       </div>
     </div>

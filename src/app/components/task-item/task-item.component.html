@@ -6,7 +6,7 @@
              <!-- Start Button (Visible if Todo or Done) -->
              <button *ngIf="task.status === 'todo'"
                 (click)="setStatus('in-progress')"
-                title="Start Task"
+                [title]="languageService.t.start"
                 class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-green-500 hover:text-green-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
                 <svg class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
              </button>
@@ -14,7 +14,7 @@
              <!-- Resume Button (Visible if Done - to restart) -->
              <button *ngIf="task.status === 'done'"
                 (click)="setStatus('in-progress')"
-                title="Restart Task"
+                [title]="languageService.t.restart"
                 class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-blue-500 hover:text-blue-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
              </button>
@@ -24,7 +24,7 @@
                <!-- Pause (Back to Todo) -->
                <button
                   (click)="setStatus('todo')"
-                  title="Pause Task"
+                  [title]="languageService.t.pause"
                   class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-orange-500 hover:text-orange-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
                   <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                </button>
@@ -32,7 +32,7 @@
                <!-- Complete -->
                <button
                   (click)="setStatus('done')"
-                  title="Complete Task"
+                  [title]="languageService.t.finish"
                   class="w-10 h-10 rounded-full flex items-center justify-center bg-[#E0E5EC] shadow-[5px_5px_10px_#b8b9be,-5px_-5px_10px_#ffffff] text-green-500 hover:text-green-600 active:shadow-[inset_2px_2px_5px_#b8b9be,inset_-2px_-2px_5px_#ffffff] transition-all">
                   <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                </button>
@@ -55,7 +55,7 @@
             <div class="flex items-center gap-3 mt-4">
               <!-- Category Chip (Recessed/Inset) -->
               <span class="px-3 py-1 text-xs font-bold text-gray-500 rounded-full bg-[#E0E5EC] shadow-[inset_3px_3px_6px_#b8b9be,inset_-3px_-3px_6px_#ffffff]">
-                {{ task.category }}
+                {{ getCategoryTranslation(task.category) }}
               </span>
 
               <!-- Priority -->
@@ -65,7 +65,7 @@
                   'text-orange-500': task.priority === 'medium',
                   'text-green-500': task.priority === 'low'
                 }">
-                {{ task.priority }}
+                {{ getPriorityTranslation(task.priority) }}
               </span>
             </div>
 

@@ -5,6 +5,7 @@ import { StatsComponent } from './components/stats/stats.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { Task, TaskFilter, TaskPriority, TaskStatus } from './models/task.model';
+import { LanguageService } from './services/language.service';
 import { TaskService } from './services/task.service';
 
 @Component({
@@ -15,6 +16,7 @@ import { TaskService } from './services/task.service';
 })
 export class App {
   taskService = inject(TaskService);
+  languageService = inject(LanguageService);
 
   showForm = false;
   selectedTask: Task | null = null;

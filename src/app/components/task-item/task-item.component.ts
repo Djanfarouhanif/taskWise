@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-task-item',
@@ -14,9 +15,19 @@ export class TaskItemComponent {
   @Output() onEdit = new EventEmitter<Task>();
   @Output() onStatusChange = new EventEmitter<Task>();
 
+  languageService = inject(LanguageService);
+
   setStatus(status: 'todo' | 'in-progress' | 'done') {
     const updatedTask = { ...this.task, status };
     this.onStatusChange.emit(updatedTask);
+  }
+
+  getPriorityTranslation(p: string): string {
+    return (this.languageService.t as any)[p] || p;
+  }
+
+  getCategoryTranslation(c: string): string {
+    return (this.languageService.t as any)[`category${c}`] || c;
   }
 
   toggleStatus() {

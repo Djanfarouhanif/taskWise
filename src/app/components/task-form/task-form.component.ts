@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, TaskPriority } from '../../models/task.model';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-task-form',
@@ -15,14 +16,25 @@ export class TaskFormComponent implements OnInit {
   @Output() onUpdate = new EventEmitter<Task>();
   @Output() onCancel = new EventEmitter<void>();
 
+  languageService = inject(LanguageService);
+
   taskForm!: FormGroup;
   priorities: TaskPriority[] = ['low', 'medium', 'high'];
+  categories: string[] = ['Personal', 'Work', 'Shopping', 'Health', 'Finance'];
 
   get isEditMode(): boolean {
     return !!this.task;
   }
 
   constructor(private fb: FormBuilder) {}
+
+  getPriorityTranslation(p: string): string {
+    return (this.languageService.t as any)[p] || p;
+  }
+
+  getCategoryTranslation(c: string): string {
+    return (this.languageService.t as any)[`category${c}`] || c;
+  }
 
   ngOnInit() {
     this.initForm();

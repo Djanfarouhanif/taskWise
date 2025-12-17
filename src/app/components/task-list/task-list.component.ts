@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { LanguageService } from '../../services/language.service';
 import { TaskService } from '../../services/task.service';
 import { TaskItemComponent } from '../task-item/task-item.component';
 
@@ -12,6 +13,7 @@ import { TaskItemComponent } from '../task-item/task-item.component';
 })
 export class TaskListComponent {
   taskService = inject(TaskService);
+  languageService = inject(LanguageService);
 
   @Output() onEditTask = new EventEmitter<Task>();
 
